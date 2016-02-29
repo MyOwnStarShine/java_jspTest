@@ -5,6 +5,8 @@ import org.hibernate.SessionFactory;
 import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
+import org.springframework.beans.factory.BeanFactory;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 
 
@@ -12,9 +14,21 @@ class Test
 {
 	public static void main(String[] args) throws Exception
 	{
-		add1();
+		//add1();
 		//add2();
+		add3();
     }
+	
+	//---------------------------------------- Spring
+	public static void add3()
+	{
+		BeanFactory bf = new ClassPathXmlApplicationContext("applicationContext.xml");
+		UsersJpaDao at = (UsersJpaDao) bf.getBean("usersjpadao");
+		Users users=at.get(3);  
+		System.out.println("username: "+ users.getUsername());  
+	    System.out.println("create at: "+ users.getCreateAt());   
+	}
+	//---------------------------------------- End Spring
 	
 	//----------------------------------------- JPA 方式
 	private static UsersDao userDao;  
@@ -23,7 +37,7 @@ class Test
 		//testSave();
 		testGet();
 	}
-	public static void testSave(){  
+	public static void testSave(){
         Users users=new Users(); 
         users.setUsername("ison.zhang3");
         users.setSalt();

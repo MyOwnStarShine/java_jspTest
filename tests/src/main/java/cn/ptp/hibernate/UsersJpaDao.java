@@ -33,7 +33,7 @@ public class UsersJpaDao implements UsersDao
 	
 	public Users get(int id) {
 		EntityManager manager = entityManagerFactory.createEntityManager();  
-        try {  
+        try {
             return manager.find(Users.class, id);  
         } finally {  
             manager.close();  
